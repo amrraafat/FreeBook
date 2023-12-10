@@ -30,7 +30,16 @@ namespace WebBook.Areas.Admin.Controllers
             
 
         }
-
+        
+        public async Task <IActionResult> DeleteRoles(string Id)
+        {
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id);
+            if ((await _roleManager.DeleteAsync(role)).Succeeded)
+            {
+                return RedirectToAction("Roles");
+            }
+            return RedirectToAction("Roles");
+        }
 
         [HttpPost]
         public async Task<IActionResult> Roles(RoleViweModel model)
@@ -76,11 +85,31 @@ namespace WebBook.Areas.Admin.Controllers
 
                     }
                 }
-            }
-            if (ModelState == null)
-            {
+                else
+                {
+                    var RoleUpdate = await _roleManager.FindByIdAsync(role.Id);
+                    RoleUpdate.Id = model.NewRole.RoleId;
+                    RoleUpdate.Name = model.NewRole.RoleName;
+                    var Result =await _roleManager.UpdateAsync(RoleUpdate);
+                    if (Result.Succeeded)
+                    {
+                        HttpContext.Session.SetString("msgType", "success");
+                        HttpContext.Session.SetString("titel", " تم الحفظ");
+                        HttpContext.Session.SetString("msg", "تم مجموعة المستخدم ");
 
+                        return RedirectToAction("Roles");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("msgType", " erorr");
+                        HttpContext.Session.SetString("titel", "لم يتم الحفظ");
+                        HttpContext.Session.SetString("msg", "لم يتم مجموعة المستخدم ");
+                        return RedirectToAction("Roles");
+                    }
+                }
             }
+            
+           
             return View();
         }
         public IActionResult Login()
