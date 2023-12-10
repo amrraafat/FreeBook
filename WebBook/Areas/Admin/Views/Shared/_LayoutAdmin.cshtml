@@ -182,7 +182,7 @@
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    
+
 
                 </div>
 
@@ -204,7 +204,7 @@
                                     <a href="/Admin/Accounts/Roles" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@ResourceWeb.lbRoles</p>
-                                       
+
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -707,12 +707,14 @@
     <!-- bs-custom-file-input -->
     <script src="~/Admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- Sweetalert -->
-    @*<script src="~/Admin/plugins/sweetalert2/sweetalert2.all.min.js"></script>*@
+    <script src="~/Admin/plugins/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
+    <script src="~/Admin/plugins/sweetalert2/sweetalert2.js"></script>
     <!-- filter -->
     @*<script src="~/Admin/plugins/isotope/isotope.pkgd.min.js"></script>*@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- AdminLTE App -->
     <script src="~/Admin/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
@@ -721,6 +723,7 @@
     <script src="~/Admin/dist/js/pages/dashboard.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false);
+
+    @await RenderSectionAsync("Script", required: false);
 </body>
 </html>

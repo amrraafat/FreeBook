@@ -1,4 +1,5 @@
 ﻿using Infarstuructre.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,13 +46,33 @@ namespace WebBook.Areas.Admin.Controllers
                 {
                     role.Id = Guid.NewGuid().ToString();
 
-                    IdentityResult result = await _roleManager.CreateAsync(role);
+                    var result = await _roleManager.CreateAsync(role);
                     if (result.Succeeded)
                     {
+                        HttpContext.Session.SetString("msgType", "success");
+                        HttpContext.Session.SetString("titel", " تم الحفظ");
+                        HttpContext.Session.SetString("msg", "تم مجموعة المستخدم ");
+
                         return RedirectToAction("Roles");
                     }
                     else
                     {
+                        List<IdentityError> errorList = result.Errors.ToList();
+                        var errors = string.Join(", ", errorList.Select(e => e.Description));
+                        if (result.Errors.Any(x=>x.Code == "DuplicateRoleName"))
+                        {
+                            HttpContext.Session.SetString("msgType", " لم يتم الحفظ");
+                            HttpContext.Session.SetString("titel", "اسم المستخدم مستخدم من قبل");
+                            HttpContext.Session.SetString("msg", "لم يتم مجموعة المستخدم ");
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetString("msgType", " لم يتم الحفظ");
+                            HttpContext.Session.SetString("titel", errors);
+                            HttpContext.Session.SetString("msg", "لم يتم مجموعة المستخدم ");
+                        }                         
+                        //return Content(errors);
+                        return RedirectToAction("Roles");
 
                     }
                 }

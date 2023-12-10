@@ -31,6 +31,7 @@ namespace WebBook
             services.AddDbContext<FreeBookDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("BookConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<FreeBookDbContext>();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,8 +51,8 @@ namespace WebBook
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,6 +1,9 @@
 ﻿@model RoleViweModel
 
 @{ ViewData["Title"] = "Roles"; }
+
+
+
 <div class="wrapper">
     <!--Content-Header-->
     <div class="content-header">
@@ -19,7 +22,7 @@
         </div>
     </div>
     <!--End Content-Header-->
-    <!-- Main content -->
+    <!----------------------------------- To retrieve Roles  ---------------------------------------->
     <section class="content">
         <div class="row">
             <div class="col-12">
@@ -27,6 +30,7 @@
                     <div class="card-header d-flex align-items-center justify-content-start">
                         <h3 class="card-title" style="margin-left:20px">@ResourceWeb.lbRoleUser</h3>
                         <div class="card-tools ">
+
                             <!-- Button trigger modal -->
                             <button type="button" style="margin-top:-5px"
                                     class="btn btn-outline-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="Rest()">
@@ -34,6 +38,7 @@
                             </button>
                         </div>
                     </div>
+
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="tableRole" class="table table-bordered table-hover">
@@ -47,24 +52,25 @@
                             <tbody>
                                 @foreach (var item in Model.Roles)
                                 {
-                    <tr>
-                        <td>
-                            @switch (@item.Name)
-                            {
-                                case "SuperAdmin":
-            <span class="badge badge-danger" style="width:250px; height:25px">@item.Name</span> break;
-                                case "Admin":
-            <span class="badge badge-success" style="width:250px; height:25px">@item.Name</span> break;
-                                default:
-            <span class="badge badge-warning" style="width:250px; height:25px">@item.Name</span>break;
-                            }
-                        </td>
-                        <td>
-                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@item.Id', '@item.Name')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />|
-                            <input type="button" class="btn btn-danger btn-sm" onclick="Delete('@item.Id')" value="@ResourceWeb.lbbtnDelete" />
-                            <a class="btn btn-success btn-sm" asp-action="Index" asp-controller="Permissions" asp-route-RoleId="@item.Id">@ResourceWeb.lbbtnPermissions</a>
-                        </td>
-                    </tr>}
+                                    <tr>
+                                        <td>
+                                            @switch (@item.Name.ToUpper())
+                                            {
+                                                case "SUPERADMIN":
+                                                    <span class="badge badge-danger" style="width:250px; height:25px">@item.Name</span> break;
+                                                case "ADMIN":
+                                                    <span class="badge badge-success" style="width:250px; height:25px">@item.Name</span> break;
+                                                default:
+                                                    <span class="badge badge-warning" style="width:250px; height:25px">@item.Name</span>break;
+                                            }
+                                        </td>
+                                        <td>
+                                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@item.Id', '@item.Name')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />|
+                                            <input type="button" class="btn btn-danger btn-sm" onclick="Delete('@item.Id')" value="@ResourceWeb.lbbtnDelete" />
+                                            <a class="btn btn-success btn-sm" asp-action="Index" asp-controller="Permissions" asp-route-RoleId="@item.Id">@ResourceWeb.lbbtnPermissions</a>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -79,10 +85,16 @@
     </section>
     <!-- /.content -->
 </div>
+<script>
+    // Check if ViewBag.Errors has a value
+    var errors = '@ViewBag.Errors';
+    if (errors.length > 0) {
+        // Display an alert with the errors
+        alert(errors);
+    }
+</script>
 
-
-
-<!-- Modal -->
+<!------------------------------------------ To Add New Role ----------------------------------------->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog card card-success card-outline">
         <div class="modal-content">
@@ -91,6 +103,7 @@
                 <a href="#" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</a>
             </div>
             <div class="modal-body">
+
                 <form asp-action="Roles" asp-controller="Accounts" method="post">
                     <div class="form-group">
                         <input type="text" hidden class="form-control" asp-for="NewRole.RoleId" id="roleId" />
@@ -110,11 +123,44 @@
     </div>
 </div>
 
+@section Script
+{
+    @if (!string.IsNullOrEmpty(Context.Session.GetString("msgType")))
+    {
+            if (Context.Session.GetString("msgType") == "success")
+            {
+                <script>
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title:' @Context.Session.GetString("titel")',
+                        text: '@Html.Raw(Context.Session.GetString("msg"))',
+                        showConfirmButton: 'حسناً',
+                        
+                    });
+                 </script>
+            }
+            else
+            {
+                <script>
+                        Swal.fire({
+                            icon: "error",
+                            title: '@Context.Session.GetString("titel")',
+                            text: '@Html.Raw(Context.Session.GetString("msg"))',
+                            showConfirmButton: 'حسناً',
+                           
 
+                        });
+                    $.ajax({
 
+                    })
+               </script>
+            }
+            Context.Session.SetString("msgType", "");
+    }
+}
 
-    //
-    <script>
+<script>
 
         let lbTitleEdit = '@Html.Raw(ResourceWeb.lbTitleEdit)';
         let lbEdit = '@Html.Raw(ResourceWeb.lbEdit)';
@@ -129,6 +175,5 @@
         let lbTitleDeletedOk = '@Html.Raw(ResourceWeb.lbTitleDeletedOk)';
         let lbMsgDeletedOkRole = '@Html.Raw(ResourceWeb.lbMsgDeletedOkRole)'
 
-    </script>
-}
+</script>
 

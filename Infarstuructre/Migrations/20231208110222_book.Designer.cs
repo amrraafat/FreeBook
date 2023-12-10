@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infarstuructre.Migrations
 {
     [DbContext(typeof(FreeBookDbContext))]
-    [Migration("20231205100459_AddDatabase")]
-    partial class AddDatabase
+    [Migration("20231208110222_book")]
+    partial class book
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
