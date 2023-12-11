@@ -1,35 +1,42 @@
-﻿function Delete(id) {
+﻿$(document).ready(function () {
+    $('#tableRole').DataTable({
+        "autoWidth": false,
+        "responsive": false
+    });
+});
+function Delete(id) {
     Swal.fire({
-        title: "هل انتا متأكد ؟",
-        text: "لن تتمكن من التراجع عن هذا!!",
-        icon: "warning",
+        title: lbTitleMsgDelete,
+        text: lbTextMsgDelete,
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: lbconfirmButtonText,
+        cancelButtonText: lbcancelButtonText
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "/Admin/Accounts/DeleteRoles?Id=" +id ;
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
+            window.location.href = `/Admin/Accounts/DeleteRole?Id=${id}`;
+            Swal.fire(
+                lbTitleDeletedOk,
+                lbMsgDeletedOkRole,
+                lbSuccess
+            )
         }
-    });
+    })
 }
 
-Edit = (id, name) =>
-{
-    document.getElementById("titel").innerHTML = "تم تعديل مجموعة المستخدم بنجاح";
-    document.getElementById("btnSave").innerHTML = "تعديل";
+Edit = (id, name) => {
+    document.getElementById("title").innerHTML = lbTitleEdit;
+    document.getElementById("btnSave").value = lbEdit;
     document.getElementById("roleId").value = id;
     document.getElementById("roleName").value = name;
+
 }
 
-Rest = (id, name) => {
-    document.getElementById("titel").innerHTML = "اضف مجموعة جديدة";
-    document.getElementById("btnSave").innerHTML = "حفظ";
-    document.getElementById("roleId").value = id;
-    document.getElementById("roleName").value = name;
+Rest = () => {
+    document.getElementById("title").innerHTML = lbAddNewRole;
+    document.getElementById("btnSave").value = lbbtnSave;
+    document.getElementById("roleId").value = "";
+    document.getElementById("roleName").value = "";
 }

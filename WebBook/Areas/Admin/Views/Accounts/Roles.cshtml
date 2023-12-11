@@ -65,13 +65,14 @@
                                             }
                                         </td>
                                         <td>
-                                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@item.Id', '@item.Name')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />|
-                                            <input type="button" class="btn btn-danger btn-sm" 
-                                                   onclick="Delete('@item.Id')"value="@ResourceWeb.lbbtnDelete" />
-                                            
+                                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@item.Id', '@item.Name')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+
+
+                                            <input type="button" class="btn btn-danger btn-sm" onclick="Delete('@item.Id')" value="@ResourceWeb.lbbtnDelete" />
+
                                         </td>
                                     </tr>
-                                    
+
                                 }
                             </tbody>
                         </table>
@@ -87,14 +88,6 @@
     </section>
     <!-- /.content -->
 </div>
-<script>
-    // Check if ViewBag.Errors has a value
-    var errors = '@ViewBag.Errors';
-    if (errors.length > 0) {
-        // Display an alert with the errors
-        alert(errors);
-    }
-</script>
 
 <!------------------------------------------ To Add New Role ----------------------------------------->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -129,35 +122,52 @@
 {
     @if (!string.IsNullOrEmpty(Context.Session.GetString("msgType")))
     {
-            if (Context.Session.GetString("msgType") == "success")
-            {
-                <script>
+        if (Context.Session.GetString("msgType") == "success")
+        {
+            <script>
                     Swal.fire({
                         icon: "success",
                         title:' @Context.Session.GetString("titel")',
                         text: '@Html.Raw(Context.Session.GetString("msg"))',
                         showConfirmButton: 'حسناً',
                     });
-                 </script>
-            }
-            else
-            {
-                <script>
+            </script>
+        }
+        else
+        {
+            <script>
                         Swal.fire({
                             icon: "error",
                             title: '@Context.Session.GetString("titel")',
                             text: '@Html.Raw(Context.Session.GetString("msg"))',
                             showConfirmButton: 'حسناً',
-                           
+
 
                         });
-                  
-               </script>
-            }
-            Context.Session.SetString("msgType", "");
+
+            </script>
+        }
+        Context.Session.SetString("msgType", "");
     }
 
-<script src="~/js/Roles.js"></script>
+    <script src="~/js/Roles.js"></script>
+    <script>
+
+        let lbTitleEdit = '@Html.Raw(ResourceWeb.lbTitleEdit)';
+        let lbEdit = '@Html.Raw(ResourceWeb.lbEdit)';
+        let lbAddNewRole = '@Html.Raw(ResourceWeb.lbAddNewRole)';
+        let lbbtnSave = '@Html.Raw(ResourceWeb.lbbtnSave)';
+
+        let lbTitleMsgDelete = '@Html.Raw(ResourceWeb.lbbtnSave)';
+        let lbTextMsgDelete = '@Html.Raw(ResourceWeb.lbTextMsgDelete)';
+        let lbconfirmButtonText = '@Html.Raw(ResourceWeb.lbconfirmButtonText)';
+        let lbcancelButtonText = '@Html.Raw(ResourceWeb.lbcancelButtonText)';
+
+        let lbTitleDeletedOk = '@Html.Raw(ResourceWeb.lbTitleDeletedOk)';
+        let lbMsgDeletedOkRole = '@Html.Raw(ResourceWeb.lbMsgDeletedOkRole)';
+
+    </script>
+
 }
 
 

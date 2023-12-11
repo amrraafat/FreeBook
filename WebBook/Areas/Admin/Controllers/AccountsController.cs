@@ -41,6 +41,18 @@ namespace WebBook.Areas.Admin.Controllers
             return RedirectToAction("Roles");
         }
 
+
+        public async Task<IActionResult> UpdateRole(string Id , string Name  )
+        {
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id );
+            if ((await _roleManager.DeleteAsync(role)).Succeeded)
+            {
+                return RedirectToAction("Roles");
+            }
+            return RedirectToAction("Roles");
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Roles(RoleViweModel model)
         {
