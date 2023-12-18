@@ -159,7 +159,7 @@ namespace WebBook.Areas.Admin.Controllers
                 // Return to the same view with validation errors
                 return View(errors);
             }
-            return View(model);
+            return RedirectToAction("Register", "Accounts");
         }
 
         public async Task<IActionResult> DeleteUser(string Id)

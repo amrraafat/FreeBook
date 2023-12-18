@@ -99,7 +99,7 @@
 
                 <form asp-action="Register" asp-controller="Accounts" method="post">
                     <div class="form-group">
-                        <input type="text" hidden class="form-control" asp-for="NewRegister.Id" id="roleId" />
+                        <input type="text" hidden class="form-control" asp-for="NewRegister.Id" id="userId" />
                         <label asp-for="NewRegister.Name" class="control-lable">@ResourceWeb.lbNameUser</label>
                         <input type="text" class="form-control" asp-for="NewRegister.Name" id="userName" />
                         <span asp-validation-for="NewRegister.Name" class="text-danger"></span>
@@ -189,6 +189,21 @@
         Context.Session.SetString("msgType", "");
     }
 
+    <script>
 
+        let lbTitleEdit = '@Html.Raw(ResourceWeb.lbTitleEdit)';
+        let lbEdit = '@Html.Raw(ResourceWeb.lbEdit)';
+        let lbAddNewRole = '@Html.Raw(ResourceWeb.lbAddNewRole)';
+        let lbbtnSave = '@Html.Raw(ResourceWeb.lbbtnSave)';
+
+        let lbTitleMsgDelete = '@Html.Raw(ResourceWeb.lbbtnSave)';
+        let lbTextMsgDelete = '@Html.Raw(ResourceWeb.lbTextMsgDelete)';
+        let lbconfirmButtonText = '@Html.Raw(ResourceWeb.lbconfirmButtonText)';
+        let lbcancelButtonText = '@Html.Raw(ResourceWeb.lbcancelButtonText)';
+
+        let lbTitleDeletedOk = '@Html.Raw(ResourceWeb.lbTitleDeletedOk)';
+        let lbMsgDeletedOkRole = '@Html.Raw(ResourceWeb.lbMsgDeletedOkRole)';
+
+    </script>
 }
-    <script src="~/js/Register.js"></script>
+<script src="~/js/Register.js"></script>

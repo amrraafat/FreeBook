@@ -26,12 +26,15 @@ function Delete(id) {
     })
 }
 
-Edit = (id, name) => {
+Edit = (id, name, ImageUser, Email, ActiveUser) => {
     document.getElementById("title").innerHTML = lbTitleEdit;
     document.getElementById("btnSave").value = lbEdit;
-    document.getElementById("roleId").value = id;
-    document.getElementById("roleName").value = name;
-
+    document.getElementById("userId").value = id;
+    document.getElementById("userName").value = name;
+    document.getElementById("userEmail").value = Email;
+    document.getElementById("userImage").value = ImageUser;
+    document.getElementById("userActive").value = ActiveUser;
+    
 }
 
 Rest = () => {
