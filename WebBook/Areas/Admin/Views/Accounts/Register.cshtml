@@ -63,7 +63,7 @@
                                         <td>@user.Email</td>
                                         <td><input type="checkbox" disabled checked="@user.ActiveUser" style="width : 35px; height:35px" /></td>
                                         <td>
-                                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@user.Id', '@user.Name', '@user.ImageUser', '@user.Email', '@user.ActiveUser')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+                                            <input type="button" class="btn btn-info btn-sm" onclick="Edit('@user.Id','@user.Name','@user.ImageUser','@user.Email','@user.ActiveUser','@user.Role')" value="@ResourceWeb.lbbtnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal" />
                                             <input type="button" class="btn btn-danger btn-sm" onclick="Delete('@user.Id')" value="@ResourceWeb.lbbtnDelete" />
                                         </td>
                                     </tr>
@@ -84,7 +84,6 @@
     </section>
     <!-- /.content -->
 </div>
-
 
 <!------------------------------------------Popup Form To Add New user ----------------------------------------->
 
@@ -109,6 +108,11 @@
                         <input type="text" class="form-control" asp-for="NewRegister.Email" id="userEmail" />
                         <span asp-validation-for="NewRegister.Email" class="text-danger"></span>
                     </div>
+
+                    <div class="form-group">
+                        <img src="@Helper.PathImageUser@Model.NewRegister.ImgeUser" alt="Alternate Text"class="img-circle" style="width:35px; height:35px;"hidden id="image" />
+                    </div>
+
 
                     <div class="form-group">
                         <label asp-for="NewRegister.ImgeUser" class="control-label">@ResourceWeb.lbImageUser</label>
@@ -139,7 +143,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="NewRegister.ComperPassword" class="control-lable">@ResourceWeb.lbComparePassword</label>
-                        <input type="password" class="form-control" asp-for="NewRegister.ComperPassword" id="userComper" />
+                        <input type="password" class="form-control" asp-for="NewRegister.ComperPassword" id="userCompare" />
                         <span asp-validation-for="NewRegister.ComperPassword" class="text-danger"></span>
 
 
@@ -205,5 +209,5 @@
         let lbMsgDeletedOkRole = '@Html.Raw(ResourceWeb.lbMsgDeletedOkRole)';
 
     </script>
-}
 <script src="~/js/Register.js"></script>
+}

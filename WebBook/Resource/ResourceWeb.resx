@@ -129,6 +129,9 @@
   <data name="lbAddNewRole" xml:space="preserve">
     <value>اضف مجموعة جديدة</value>
   </data>
+  <data name="lbAddNewUser" xml:space="preserve">
+    <value>اضف مستخدم جديدة</value>
+  </data>
   <data name="lbbtnChangePassword" xml:space="preserve">
     <value>تغير كلمة المرور</value>
   </data>

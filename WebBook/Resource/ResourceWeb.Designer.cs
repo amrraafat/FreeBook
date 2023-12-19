@@ -95,7 +95,18 @@ namespace WebBook.Resource {
                 return ResourceManager.GetString("lbAddNewRole", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to اضف مستخدم جديد.
+        /// </summary>
+        public static string lbAddNewUser
+        {
+            get
+            {
+                return ResourceManager.GetString("lbAddNewUser", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to تغير كلمة المرور.
         /// </summary>
