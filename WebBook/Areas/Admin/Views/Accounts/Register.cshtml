@@ -96,9 +96,10 @@
             </div>
             <div class="modal-body">
 
-                <form asp-action="Register" asp-controller="Accounts" method="post">
+                <form asp-action="Register" asp-controller="Accounts" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" hidden class="form-control" asp-for="NewRegister.Id" id="userId" />
+                        <input type="text" hidden class="form-control" asp-for="NewRegister.ImgeUser" id="imageHide" />
                         <label asp-for="NewRegister.Name" class="control-lable">@ResourceWeb.lbNameUser</label>
                         <input type="text" class="form-control" asp-for="NewRegister.Name" id="userName" />
                         <span asp-validation-for="NewRegister.Name" class="text-danger"></span>

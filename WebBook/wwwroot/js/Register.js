@@ -16,7 +16,7 @@ function Delete(id) {
         cancelButtonText: lbcancelButtonText
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `/Admin/Accounts/DeleteRole?Id=${id}`;
+            window.location.href = `/Admin/Accounts/DeleteUser?Id=${id}`;
             Swal.fire(
                 lbTitleDeletedOk,
                 lbMsgDeletedOkRole,
@@ -33,7 +33,8 @@ Edit = (id,name,image,Email,ActiveUser,Role) => {
     document.getElementById("userName").value = name;
     document.getElementById("userEmail").value = Email;
     document.getElementById("image").hidden = false;
-    document.getElementById("image").src ="/Images/Users/"+ image;
+    document.getElementById("image").src = "/Images/Users/" + image;
+    document.getElementById("imageHide").value = image;
     document.getElementById("ddluserRole").value = Role;
     $('#grPassword').hide();
     $('#grcomPassword').hide();

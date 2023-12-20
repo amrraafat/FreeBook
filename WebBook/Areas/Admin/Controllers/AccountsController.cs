@@ -1,11 +1,13 @@
 ﻿using Domin.Entity;
 using Infarstuructre.Data;
 using Infarstuructre.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,6 +61,15 @@ namespace WebBook.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var file = HttpContext.Request.Form.Files;
+                if (file.Count()>0)
+                {
+                    string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
+                    var fileStream = new FileStream(Path.Combine(@"wwwroot/", Helper.PathSaveImageUser, ImageName), FileMode.Create);
+                    file[0].CopyTo(fileStream);
+                    model.NewRegister.ImgeUser = ImageName;
+
+                }
                 var User = new ApplicationUser
                 {
                     Id = model.NewRegister.Id,
@@ -165,14 +176,22 @@ namespace WebBook.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteUser(string Id)
         {
             var User = _userManager.Users.FirstOrDefault(x => x.Id == Id);
+            if (User.ImageUser== null && User.ImageUser != Guid.Empty.ToString() )
+            {
+                var PathImage = Path.Combine(@"wwwroot/", Helper.PathImageUser, User.ImageUser);
+                if (System.IO.File.Exists(PathImage))
+                {
+                    System.IO.File.Delete(PathImage);
+                }
+            }
             if ((await _userManager.DeleteAsync(User)).Succeeded)
             {
-                return RedirectToAction("Users");
+                return RedirectToAction("Register", "Accounts");
             }
-            return RedirectToAction("Users");
+            return RedirectToAction("Register", "Accounts");
         }
 
-
+        
         [HttpPost]
         public async Task<IActionResult> Roles(RoleViweModel model)
         {
@@ -246,6 +265,7 @@ namespace WebBook.Areas.Admin.Controllers
         }
         public async Task<IActionResult> DeleteRoles(string Id)
         {
+
             var role = _roleManager.Roles.FirstOrDefault(x => x.Id == Id);
             if ((await _roleManager.DeleteAsync(role)).Succeeded)
             {
